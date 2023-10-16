@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, update
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-# Define your database connection URL (replace with your own connection details)
 db_host = "0.0.0.0"
 db_port = "5432"
 db_name = "etl-database"

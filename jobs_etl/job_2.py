@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine, Column, Integer, Float, String, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base, sessionmaker
 import csv
 
-# Define your database connection URL
 db_host = "0.0.0.0" 
 db_port = "5432"       
 db_name = "etl-database"   
@@ -10,10 +9,8 @@ db_user = "postgres"
 db_password = "root"  
 db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
-# Create a SQLAlchemy engine
 engine = create_engine(db_url)
 
-# Define your data model using SQLAlchemy's declarative_base
 Base = declarative_base()
 
 class Lifestyle(Base):
@@ -29,10 +26,8 @@ class Lifestyle(Base):
     insurance = Column(String(50))
     gender = Column(String(50))
 
-# Create the database tables (if they don't exist)
 Base.metadata.create_all(engine)
 
-# Create a session
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -41,7 +36,7 @@ csv_file = 'raw_data/medicalmalpractice.csv'
 try:
     with open(csv_file, 'r', newline='') as file:
         reader = csv.reader(file)
-        next(reader)  # Skip the header row
+        next(reader)  #
         for row in reader:
             stock_price = Lifestyle(
                 amount=int(row[0]),
