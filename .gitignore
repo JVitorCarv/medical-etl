@@ -1,3 +1,4 @@
 ip_address.txt
-venv/
-raw_data/
+venv
+raw_data
+__pycache__

@@ -1,32 +1,10 @@
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import sessionmaker
+from db_handler import get_engine, get_orm_model
 import csv
 
-db_host = "0.0.0.0" 
-db_port = "5432"       
-db_name = "etl-database"   
-db_user = "postgres"  
-db_password = "root"  
-db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+engine = get_engine()
 
-engine = create_engine(db_url)
-
-Base = declarative_base()
-
-class Lifestyle(Base):
-    __tablename__ = 'Lifestyle'
-
-    id = Column(Integer, primary_key=True)
-    amount = Column(Integer)
-    severity = Column(Integer)
-    age = Column(Integer)
-    private_attorney = Column(Integer)
-    marital_status = Column(Integer)
-    specialty = Column(String(50))
-    insurance = Column(String(50))
-    gender = Column(String(50))
-
-Base.metadata.create_all(engine)
+Lifestyle = get_orm_model(engine)
 
 Session = sessionmaker(bind=engine)
 session = Session()
